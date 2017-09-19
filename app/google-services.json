@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "28633101848",
+    "firebase_url": "https://sigagah-hivids-bogor.firebaseio.com",
+    "project_id": "sigagah-hivids-bogor",
+    "storage_bucket": "sigagah-hivids-bogor.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28633101848:android:37a7efd530377409",
+        "android_client_info": {
+          "package_name": "besidev.sigavidsbogor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "28633101848-evbbutucddaj38ecekuupsoulkopc6jj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "besidev.sigavidsbogor",
+            "certificate_hash": "fd060bc170ac28b6e1dcabc2095bfffadb7f764d"
+          }
+        },
+        {
+          "client_id": "28633101848-f93he0uj9fs7u6gah3dtlqp1fsoe8ama.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcG8H8EeFT1thPe3tKUHLytIZ_l50w0dQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "28633101848-f93he0uj9fs7u6gah3dtlqp1fsoe8ama.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

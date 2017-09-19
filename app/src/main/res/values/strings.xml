@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Sigavids Bogor</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="tagline">"Jauhi penyakitnya, bukan orangnya!"</string>
+    <!--<string name="default_web_client_id">28633101848-evbbutucddaj38ecekuupsoulkopc6jj.apps.googleusercontent.com</string>-->
+
+
+    <string name="ws_title_1">Selamat datang di Aplikasi <i>Sigavids Bogor</i></string>
+    <string name="ws_content_1">Sistem Informasi Penanggulangan dan Pencegahan HIV / Aids Kota Bogor</string>
+
+    <string name="ws_title_2">Cari Tahu apa itu HIV / Aids!</string>
+    <string name="ws_content_2">Kenali penyakitnya dan jauhi faktor penyebabnya, bukan orangnya!</string>
+
+    <string name="ws_title_3">Temukan Layanan Kesehatan penanganan HIV / Aids di Kota Bogor</string>
+    <string name="ws_content_3">Dapatkan informasi mengenai Puskesmas dan Rumah Sakit yang dapat menangani HIV / Aids di Kota Bogor!</string>
+
+    <string name="ws_title_4">Kamu Beresiko? Jangan takut untuk melakukan VCT!</string>
+    <string name="ws_content_4">Tenaga Kesehatan professional akan membimbingmu melakukan VCT</string>
+
+    <string name="ls_instruksi_1">Login menggunakan akun Google anda</string>
+    <string name="ls_instruksi_2">Dengan masuk menggunakan akun Google,<br/> anda telah terdaftar di aplikasi <i>Sigavids Bogor</i></string>
+
+    <string name="menu_1">Kenali HIV / Aids</string>
+    <string name="menu_2">Temukan layanan kesehatan HIV / Aids</string>
+    <string name="menu_3"></string>
+</resources>
