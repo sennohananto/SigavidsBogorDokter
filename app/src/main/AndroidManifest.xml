@@ -24,8 +24,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/AppBaseThemeNoActionBar">
-        </activity>
+            android:theme="@style/AppBaseThemeNoActionBar"></activity>
         <activity
             android:name=".ActivityIntro"
             android:theme="@style/AppBaseThemeNoActionBar" />
@@ -33,7 +32,8 @@
         <activity
             android:name=".ActivityDoneLogin"
             android:theme="@style/AppBaseThemeNoActionBar" />
-        <activity android:name=".SplashActivity"
+        <activity
+            android:name=".SplashActivity"
             android:theme="@style/AppBaseThemeNoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,6 +41,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".BaseActivity"
+            android:label="@string/title_activity_base"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

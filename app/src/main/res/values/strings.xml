@@ -36,4 +36,10 @@
     <string name="menu_1">Kenali HIV / Aids</string>
     <string name="menu_2">Temukan layanan kesehatan HIV / Aids</string>
     <string name="menu_3"></string>
+    <string name="title_activity_base">BaseActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
