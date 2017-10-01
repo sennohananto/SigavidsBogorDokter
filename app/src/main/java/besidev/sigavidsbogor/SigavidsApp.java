@@ -3,6 +3,8 @@ package besidev.sigavidsbogor;
 import android.app.Application;
 import android.content.Context;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+
 /**
  * Created by Senno Hananto on 30/09/2017.
  */
@@ -10,6 +12,7 @@ import android.content.Context;
 public class SigavidsApp extends Application {
     public static SigavidsApp mInstance;
     private static Context AppContext;
+    public static GoogleApiClient mGoogleApiClient;
 
     @Override
     public void onCreate() {
@@ -27,6 +30,14 @@ public class SigavidsApp extends Application {
 //        AppHelper.LogCat("-->LEWAT CREATE");
         mInstance = this;
 //        init();
+    }
+
+    public static GoogleApiClient getmGoogleApiClient() {
+        return mGoogleApiClient;
+    }
+
+    public static void setmGoogleApiClient(GoogleApiClient mGoogleApiClient) {
+        SigavidsApp.mGoogleApiClient = mGoogleApiClient;
     }
 
     public static Context getAppContext() {

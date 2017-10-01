@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@color/colorPrimary"
     android:padding="@dimen/activity_horizontal_margin"
-    tools:context=".LoginActivity">
+    tools:context=".ui.activity.LoginActivity">
 
     <ImageView
         android:src="@drawable/ic_teenager"
@@ -108,9 +108,12 @@
         android:text="@string/tagline"
         android:layout_width="336dp"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="8dp"
         android:id="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent" />
 
 
 

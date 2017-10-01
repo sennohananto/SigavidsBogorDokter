@@ -1,6 +1,5 @@
-package besidev.sigavidsbogor;
+package besidev.sigavidsbogor.helpers;
 
-import android.*;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,6 +13,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+
+import besidev.sigavidsbogor.R;
 
 /**
  * Created by Senno Hananto on 30/09/2017.
@@ -68,7 +69,7 @@ public class AppHelpers {
             String Message = null;
             switch (permission) {
                 case android.Manifest.permission.CAMERA:
-                    title = mActivity.getString(R.string.camera_permission);
+                    title = mActivity.getString(besidev.sigavidsbogor.R.string.camera_permission);
                     Message = mActivity.getString(R.string.camera_permission_message);
                     break;
                 case android.Manifest.permission.RECORD_AUDIO:

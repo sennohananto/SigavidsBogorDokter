@@ -43,13 +43,14 @@
 
     <string name="title_main">Event tentang HIV/Aids di Kota Bogor</string>
 
-    <string name="title_activity_base">BaseActivity</string>
+    <string name="title_activity_base">Sigavids Bogor</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="title_activity_layanan_hiv">Layanan HIV/Aids</string>
+    <string name="title_activity_layanan_hiv">Temukan Layanan HIV/Aids</string>
 
     <!-- Permissions strings start -->
+    <string name="error_location_provider">Location services disabled</string>
     <string name="camera_permission">Camera Permission</string>
     <string name="audio_permission">Audio Permission</string>
     <string name="storage_permission">Storage Permission</string>

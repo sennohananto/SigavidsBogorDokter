@@ -1,4 +1,4 @@
-package besidev.sigavidsbogor;
+package besidev.sigavidsbogor.helpers;
 
 /**
  * Created by Senno Hananto on 30/09/2017.

@@ -2,9 +2,10 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/bg_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="besidev.sigavidsbogor.SplashActivity">
+    tools:context="besidev.sigavidsbogor.ui.activity.SplashActivity">
     <ImageView
         android:src="@drawable/ic_logosigavids"
         android:layout_width="368dp"

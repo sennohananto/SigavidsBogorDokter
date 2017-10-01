@@ -1,10 +1,10 @@
-package besidev.sigavidsbogor;
+package besidev.sigavidsbogor.ui.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import besidev.sigavidsbogor.R;
 
 public class SplashActivity extends AppCompatActivity {
     private Thread splashTread;

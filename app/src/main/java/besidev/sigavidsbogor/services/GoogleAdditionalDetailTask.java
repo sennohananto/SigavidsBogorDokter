@@ -1,7 +1,6 @@
-package besidev.sigavidsbogor;
+package besidev.sigavidsbogor.services;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
@@ -18,9 +17,13 @@ import com.google.api.services.people.v1.model.Person;
 import java.io.IOException;
 import java.util.Arrays;
 
-import static android.content.ContentValues.TAG;
-import static besidev.sigavidsbogor.AppConstants.GOOGLE_CLIENT_ID;
-import static besidev.sigavidsbogor.AppConstants.GOOGLE_CLIENT_SECRET;
+import besidev.sigavidsbogor.SigavidsApp;
+import besidev.sigavidsbogor.helpers.AppConstants;
+import besidev.sigavidsbogor.helpers.AppHelpers;
+import besidev.sigavidsbogor.helpers.PreferenceManager;
+
+import static besidev.sigavidsbogor.helpers.AppConstants.GOOGLE_CLIENT_ID;
+import static besidev.sigavidsbogor.helpers.AppConstants.GOOGLE_CLIENT_SECRET;
 
 /**
  * Created by Senno Hananto on 30/09/2017.
@@ -34,34 +37,28 @@ public class GoogleAdditionalDetailTask extends AsyncTask<GoogleSignInAccount,Vo
         String profileGender = null, profileBirthday = null, profileYearOfBirth = null, profileAbout = null, profileCover = null;
         if (person != null) {
             if (person.getGenders() != null && person.getGenders().size() > 0) {
-                PreferenceManager.setGender(person.getGenders().get(0).getValue(),SigavidsApp.getAppContext());
+                PreferenceManager.setGender(person.getGenders().get(0).getValue(), SigavidsApp.getAppContext());
                 AppHelpers.LogCat("Genders : "+ person.getGenders().get(0).getValue());
                 profileGender = person.getGenders().get(0).getValue();
                 //profileGender = person.getGenders().get(0).getValue();
             }
             if (person.getBirthdays() != null && person.getBirthdays().get(0).size() > 0) {
 //              yyyy-MM-dd
-                AppHelpers.LogCat("Tgllhr MENTAH : "+person.getBirthdays().get(0).getDate());
-                Date dobDate = person.getBirthdays().get(0).getDate();
+                AppHelpers.LogCat("Tgllhr MENTAH : "+person.getBirthdays().get(1).getDate());
+                Date dobDate = person.getBirthdays().get(1).getDate();
                 if (dobDate.getYear() != null) {
-                    PreferenceManager.setBirthday(dobDate.getYear() + "-" + dobDate.getMonth() + "-" + dobDate.getDay(),SigavidsApp.getAppContext());
-                    AppHelpers.LogCat("Ultah : "+dobDate.getYear() + "-" + dobDate.getMonth() + "-" + dobDate.getDay());
-                    profileBirthday = dobDate.getYear() + "-" + dobDate.getMonth() + "-" + dobDate.getDay();
-//                    profileBirthday = dobDate.getYear() + "-" + dobDate.getMonth() + "-" + dobDate.getDay();
-//                    profileYearOfBirth = DateHelper.getYearFromGoogleDate(profileBirthday);
+                    PreferenceManager.setBirthday(dobDate.getDay() + "-" + dobDate.getMonth() + "-" + dobDate.getYear(),SigavidsApp.getAppContext());
+                    AppHelpers.LogCat("Ultah : "+dobDate.getDay() + "-" + dobDate.getMonth() + "-" + dobDate.getYear());
                 }
             }
-            if (person.getBiographies() != null && person.getBiographies().size() > 0) {
-                PreferenceManager.setBirthday(person.getBiographies().get(0).getValue(),SigavidsApp.getAppContext());
-//                profileAbout = person.getBiographies().get(0).getValue();
+            if (person.getAddresses() != null){
+                AppHelpers.LogCat("Address (type): "+ person.getAddresses().get(0).getFormattedType());
+                AppHelpers.LogCat("Address (value): "+ person.getAddresses().get(0).getFormattedValue());
             }
-            if (person.getCoverPhotos() != null && person.getCoverPhotos().size() > 0) {
-//                PreferenceManager.set
-//                profileCover = person.getCoverPhotos().get(0).getUrl();
+            if (person.getPhoneNumbers() != null){
+                AppHelpers.LogCat("PhoneNumbers : "+ person.getPhoneNumbers().get(0).getFormattedType());
             }
-            Log.d(TAG, String.format("googleOnComplete: gender: %s, birthday: %s, about: %s, cover: %s", profileGender, profileBirthday, profileAbout, profileCover));
         }
-//        startHomeActivity();
     }
 
     @Override
@@ -76,7 +73,9 @@ public class GoogleAdditionalDetailTask extends AsyncTask<GoogleSignInAccount,Vo
             // Can be empty too.
             String redirectUrl = "urn:ietf:wg:oauth:2.0:oob";
             String scope = "https://www.googleapis.com/auth/contacts.readonly";
-            String authorizationUrl = new GoogleBrowserClientRequestUrl(AppConstants.GOOGLE_CLIENT_ID,redirectUrl, Arrays.asList(scope)).build();
+            String scope1 = "https://www.googleapis.com/auth/user.phonenumbers.read";
+            String scope2 = "https://www.googleapis.com/auth/user.addresses.read";
+            String authorizationUrl = new GoogleBrowserClientRequestUrl(AppConstants.GOOGLE_CLIENT_ID,redirectUrl, Arrays.asList(scope,scope1,scope2)).build();
             AppHelpers.LogCat("AuthorizationURL : "+ authorizationUrl);
 
 //            String redirectUrl =  "https://people.googleapis.com/v1/";
@@ -95,16 +94,9 @@ public class GoogleAdditionalDetailTask extends AsyncTask<GoogleSignInAccount,Vo
                     .setJsonFactory(jsonFactory)
                     .build()
                     .setFromTokenResponse(tokenResponse);
-
-
-//            PeopleService.People peopleService = new PeopleService.People.Builder(httpTransport, jsonFactory, credential).build();
             PeopleService peopleService = new PeopleService.Builder(httpTransport, jsonFactory, credential).build();
             // Get the user's profile
             profile = peopleService.people().get("people/me").setPersonFields("names,addresses,birthdays,ageRanges,genders,phoneNumbers").execute();
-//            profile = peopleService.people()
-//                    .get("people/me")
-//                    .setFields("names,addresses,birthdays,ageRanges,genders,phoneNumbers")
-//                    .execute();
         } catch (IOException e) {
             AppHelpers.LogCat("doInBackground : "+e.getMessage());
             e.printStackTrace();

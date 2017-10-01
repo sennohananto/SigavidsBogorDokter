@@ -14,15 +14,15 @@
         android:textSize="36sp"
         android:textStyle="bold"
         android:textColor="@color/white"
-        android:text="@string/app_name"
+        android:text=""
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <ImageView
         android:id="@+id/bgimage3"
         android:layout_margin="16px"
-        android:src="@drawable/bgsplash"
+        android:src="@drawable/ic_vcttest"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="259dp" />
     <TextView
         android:layout_marginTop="30dp"
         android:id="@+id/title"

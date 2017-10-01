@@ -1,4 +1,4 @@
-package besidev.sigavidsbogor;
+package besidev.sigavidsbogor.ui.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -35,7 +35,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import static besidev.sigavidsbogor.AppConstants.GOOGLE_CLIENT_ID;
+import besidev.sigavidsbogor.SigavidsApp;
+import besidev.sigavidsbogor.helpers.AppHelpers;
+import besidev.sigavidsbogor.services.GoogleAdditionalDetailTask;
+import besidev.sigavidsbogor.R;
+
+import static besidev.sigavidsbogor.helpers.AppConstants.GOOGLE_CLIENT_ID;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
 
@@ -75,17 +80,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         }
     }
-
-
-//    private void signOut() {
-//        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-//                new ResultCallback<Status>() {
-//                    @Override
-//                    public void onResult(Status status) {
-//                        updateUI(false);
-//                    }
-//                });
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,7 +153,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .requestEmail()
                 .requestIdToken(GOOGLE_CLIENT_ID)
                 .requestServerAuthCode(GOOGLE_CLIENT_ID)
-                .requestScopes(new Scope(Scopes.PROFILE))
+                .requestScopes(new Scope(Scopes.PROFILE), new Scope(Scopes.PLUS_ME),new Scope("https://www.googleapis.com/auth/user.addresses.read"), new Scope("https://www.googleapis.com/auth/user.birthday.read"),new Scope("https://www.googleapis.com/auth/user.phonenumbers.read"))
                 .build();
 
 //        mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -178,6 +172,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
+        SigavidsApp.setmGoogleApiClient(mGoogleApiClient);
+
         // Customizing G+ button
         btnSignIn.setSize(SignInButton.SIZE_STANDARD);
         btnSignIn.setScopes(gso.getScopeArray());
@@ -186,15 +182,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-//    private void revokeAccess() {
-//        Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient).setResultCallback(
-//                new ResultCallback<Status>() {
-//                    @Override
-//                    public void onResult(Status status) {
-//                        updateUI(false);
-//                    }
-//                });
-//    }
+
 
     @Override
     public void onClick(View v) {
@@ -290,9 +278,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             FirebaseUser user = mAuth.getCurrentUser();
                             Intent keMainActivity = new Intent(LoginActivity.this,ActivityDoneLogin.class);
 //                            keMainActivity.putExtra(AppConstants.EXTRA_CONTENT, acct);
-                            besidev.sigavidsbogor.PreferenceManager.setEmail(acct.getEmail(),getApplicationContext());
-                            besidev.sigavidsbogor.PreferenceManager.setDisplayName(acct.getDisplayName(),getApplicationContext());
-                            besidev.sigavidsbogor.PreferenceManager.setPictureURL(acct.getPhotoUrl().toString(),getApplicationContext());
+                            besidev.sigavidsbogor.helpers.PreferenceManager.setEmail(acct.getEmail(),getApplicationContext());
+                            besidev.sigavidsbogor.helpers.PreferenceManager.setDisplayName(acct.getDisplayName(),getApplicationContext());
+                            besidev.sigavidsbogor.helpers.PreferenceManager.setPictureURL(acct.getPhotoUrl().toString(),getApplicationContext());
                             startActivity(keMainActivity);
                             LoginActivity.this.finish();
 //                            updateUI(user);

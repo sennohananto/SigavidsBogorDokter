@@ -1,4 +1,4 @@
-package besidev.sigavidsbogor;
+package besidev.sigavidsbogor.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

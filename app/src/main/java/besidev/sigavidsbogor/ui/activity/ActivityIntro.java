@@ -1,4 +1,4 @@
-package besidev.sigavidsbogor;
+package besidev.sigavidsbogor.ui.activity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -10,6 +10,9 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.github.paolorotolo.appintro.AppIntro;
+
+import besidev.sigavidsbogor.R;
+import besidev.sigavidsbogor.ui.fragment.SampleSlide;
 
 
 public class ActivityIntro extends AppIntro {

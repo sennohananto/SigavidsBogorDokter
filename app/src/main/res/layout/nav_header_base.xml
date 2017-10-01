@@ -12,14 +12,15 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@android:drawable/sym_def_app_icon" />
+    <cn.refactor.library.ShapeImageView
+        android:id="@+id/navhead_photo"
+        android:layout_marginTop="24dp"
+        android:paddingTop="24dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp" />
 
     <TextView
+        android:id="@+id/navhead_nama"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
@@ -27,9 +28,26 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/navhead_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="android.studio@android.com" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/navhead_birthday"
+            android:text="Birthday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/navhead_gender"
+            android:layout_marginStart="16dp"
+            android:text="Gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
 </LinearLayout>
