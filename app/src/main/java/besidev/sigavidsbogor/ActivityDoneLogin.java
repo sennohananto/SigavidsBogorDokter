@@ -26,7 +26,7 @@ public class ActivityDoneLogin extends AppCompatActivity {
 
     private TextView tvNama, tvEmail;
     private ShapeImageView ivFoto;
-    private GoogleSignInAccount acct;
+//    private GoogleSignInAccount acct;
     private Thread done;
     private Animation animFadeIn;
     @Override
@@ -44,11 +44,11 @@ public class ActivityDoneLogin extends AppCompatActivity {
         ivFoto = (ShapeImageView) findViewById(R.id.ws_foto);
         animFadeIn = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_in);
 
-        acct = getIntent().getParcelableExtra("dataAkun");
+//        acct = getIntent().getParcelableExtra("dataAkun");
 
-        Picasso.with(getApplicationContext()).load(String.valueOf(acct.getPhotoUrl())).resize(500, 500).into(ivFoto);
-        tvNama.setText(acct.getDisplayName());
-        tvEmail.setText(acct.getEmail());
+        Picasso.with(getApplicationContext()).load(String.valueOf(besidev.sigavidsbogor.PreferenceManager.getPictureURL(getApplicationContext()))).resize(500, 500).into(ivFoto);
+        tvNama.setText(besidev.sigavidsbogor.PreferenceManager.getDisplayName(getApplicationContext()));
+        tvEmail.setText(besidev.sigavidsbogor.PreferenceManager.getEmail(getApplicationContext()));
         ivFoto.setAnimation(animFadeIn);
 
         done = new Thread() {
@@ -61,7 +61,7 @@ public class ActivityDoneLogin extends AppCompatActivity {
                         sleep(100);
                         waited += 100;
                     }
-                    Intent keMain = new Intent(ActivityDoneLogin.this,MainActivity.class);
+                    Intent keMain = new Intent(ActivityDoneLogin.this,BaseActivity.class);
                     finish();
                     startActivity(keMain);
 

@@ -34,12 +34,47 @@
     <string name="ls_instruksi_2">Dengan masuk menggunakan akun Google,<br /> anda telah terdaftar di aplikasi <i>Sigavids Bogor</i></string>
 
     <string name="menu_1">Kenali HIV / Aids</string>
-    <string name="menu_2">Temukan layanan kesehatan HIV / Aids</string>
-    <string name="menu_3"></string>
+    <string name="menu_2">Temukan layanan HIV / Aids</string>
+    <string name="menu_3">Dapatkan Teman Pendamping!</string>
+    <string name="menu_4">Rekam MedisGue</string>
+    <string name="menu_5">Q n A HIV/Aids</string>
+    <string name="logout">Logout</string>
+    <string name="about">Tentang Aplikasi</string>
+
+    <string name="title_main">Event tentang HIV/Aids di Kota Bogor</string>
+
     <string name="title_activity_base">BaseActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_layanan_hiv">Layanan HIV/Aids</string>
 
-    <string name="action_settings">Settings</string>
+    <!-- Permissions strings start -->
+    <string name="camera_permission">Camera Permission</string>
+    <string name="audio_permission">Audio Permission</string>
+    <string name="storage_permission">Storage Permission</string>
+    <string name="contacts_permission">Contacts Permission</string>
+    <string name="vibrate_permission">Vibrate Permission</string>
+    <string name="receive_sms_permission">Receive sms Permission</string>
+    <string name="read_sms_permission">Read sms Permission</string>
+    <string name="call_phone_permission">Call Phone Permission</string>
+    <string name="get_accounts_permission">Call Phone Permission</string>
+    <string name="camera_permission_message">Camera permission allows you to take pictures and capture videos. Please allow in App Settings for additional functionality.</string>
+    <string name="record_audio_permission_message">Record audio permission allows you to  record audios. Please allow in App Settings for additional functionality.</string>
+    <string name="settings_audio_permission_message">Modify audio permission allows us access to your audios. Please allow in App Settings for additional functionality.</string>
+    <string name="write_storage_permission_message">Write External permission allows us  access to your media. Please allow in App Settings for additional functionality.</string>
+    <string name="read_storage_permission_message">Read External permission allows us to read your media. Please allow in App Settings for additional functionality.</string>
+    <string name="read_contacts_permission_message">Read Contacts permission allows us to read your contacts. Please allow in App Settings for additional functionality.</string>
+    <string name="write_contacts_permission_message">Write Contacts permission allows you access to your contacts. Please allow in App Settings for additional functionality.</string>
+    <string name="vibrate_permission_message">Vibrate permission . Please allow in App Settings for additional functionality.</string>
+    <string name="receive_sms_permission_message">Receive sms permission allows you  to receive SMS messages. Please allow in App Settings for additional functionality.</string>
+    <string name="read_sms_permission_message">Read sms permission allows us access to your SMS messages. Please allow in App Settings for additional functionality.</string>
+    <string name="call_phone_permission_message">Call phone permission allows you make calls. Please allow in App Settings for additional functionality.</string>
+    <string name="get_accounts_permission_message">Get accounts permission . Please allow in App Settings for additional functionality.</string>
+    <string name="no_thanks">No Thanks</string>
+    <string name="yes">Yes</string>
+
+    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
+    <!--Permissions strings end -->
+
 </resources>

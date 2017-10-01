@@ -21,10 +21,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -32,6 +34,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+
+import static besidev.sigavidsbogor.AppConstants.GOOGLE_CLIENT_ID;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
 
@@ -67,6 +71,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if(result.isSuccess()){
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
+                googleAdditionalDetailsResult(data);
             }
         }
     }
@@ -86,8 +91,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
         mAuth = FirebaseAuth.getInstance();
         btnSignIn = (SignInButton) findViewById(R.id.btn_sign_in);
 //        btnSignOut = (Button) findViewById(R.id.btn_sign_out);
@@ -106,7 +109,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         boolean LoggedIn = getPrefs.getBoolean("LoggedIn", false);
 
         if(LoggedIn){
-            Intent keMain = new Intent(LoginActivity.this,MainActivity.class);
+            Intent keMain = new Intent(LoginActivity.this,BaseActivity.class);
             startActivity(keMain);
             this.finish();
         }
@@ -148,13 +151,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Start the thread
         t.start();
 
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestIdToken(getString(R.string.default_web_client_id))
+//                .requestEmail()
+//                .build();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
+                .requestIdToken(GOOGLE_CLIENT_ID)
+                .requestServerAuthCode(GOOGLE_CLIENT_ID)
+                .requestScopes(new Scope(Scopes.PROFILE))
                 .build();
 
+//        mGoogleApiClient = new GoogleApiClient.Builder(this)
+//                .enableAutoManage(this, this)
+//                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+//                .build();
+
         mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, this)
+//                .enableAutoManage(this, connectionResult -> Log.d(TAG, "onConnectionFailed: "))
+                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                        AppHelpers.LogCat("onConnectionFailed : ");
+                    }
+                })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
@@ -174,33 +194,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 //                        updateUI(false);
 //                    }
 //                });
-//    }
-
-//    private void handleSignInResult(GoogleSignInResult result) {
-//        Log.d(TAG, "handleSignInResult:" + result.isSuccess());
-//        if (result.isSuccess()) {
-//            // Signed in successfully, show authenticated UI.
-//            GoogleSignInAccount acct = result.getSignInAccount();
-//
-//            Log.e(TAG, "display name: " + acct.getDisplayName());
-//
-////            String personName = acct.getDisplayName();
-////            String personPhotoUrl = acct.getPhotoUrl().toString();
-////            String email = acct.getEmail();
-//
-////            Log.e(TAG, "Name: " + personName + ", email: " + email+ ", Image: " + personPhotoUrl);
-//
-////            txtName.setText(personName);
-////            txtEmail.setText(email);
-////
-////            Glide.with(getApplicationContext()).load(personPhotoUrl)
-////                    .thumbnail(0.5f)
-////                    .crossFade()
-////                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-////                    .into(imgProfilePic);
-//        } else {
-//            // Signed out, show unauthenticated UI.
-//        }
 //    }
 
     @Override
@@ -295,9 +288,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-
                             Intent keMainActivity = new Intent(LoginActivity.this,ActivityDoneLogin.class);
-                            keMainActivity.putExtra("dataAkun", acct);
+//                            keMainActivity.putExtra(AppConstants.EXTRA_CONTENT, acct);
+                            besidev.sigavidsbogor.PreferenceManager.setEmail(acct.getEmail(),getApplicationContext());
+                            besidev.sigavidsbogor.PreferenceManager.setDisplayName(acct.getDisplayName(),getApplicationContext());
+                            besidev.sigavidsbogor.PreferenceManager.setPictureURL(acct.getPhotoUrl().toString(),getApplicationContext());
                             startActivity(keMainActivity);
                             LoginActivity.this.finish();
 //                            updateUI(user);
@@ -308,9 +303,49 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Toast.LENGTH_SHORT).show();
 //                            updateUI(null);
                         }
-
-                        // ...
                     }
                 });
+    }
+
+    private void setupGoogleAdditionalDetailsLogin() {
+        // Configure sign-in to request the user's ID, email address, and basic profile. ID and
+        // basic profile are included in DEFAULT_SIGN_IN.
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestIdToken(GOOGLE_CLIENT_ID)
+                .requestServerAuthCode(GOOGLE_CLIENT_ID)
+                .requestScopes(new Scope(Scopes.PROFILE))
+                .build();
+
+        // Build a GoogleApiClient with access to GoogleSignIn.API and the options above.
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                        Log.d(TAG, "onConnectionFailed: ");
+                    }
+                })
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+    }
+
+    public void googleAdditionalDetailsResult(Intent data) {
+        Log.d(TAG, "googleAdditionalDetailsResult: ");
+        GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+        if (result.isSuccess()) {
+            // Signed in successfully
+            GoogleSignInAccount acct = result.getSignInAccount();
+            // execute AsyncTask to get data from Google People API
+            new GoogleAdditionalDetailTask().execute(acct);
+        } else {
+            Log.d(TAG, "googleAdditionalDetailsResult: fail");
+//            startHomeActivity();
+        }
+    }
+
+    private void startGoogleAdditionalRequest() {
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+
     }
 }
