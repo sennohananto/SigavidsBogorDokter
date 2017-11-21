@@ -66,14 +66,12 @@ public class BaseActivity extends AppCompatActivity
         View navHeader = LayoutInflater.from(this).inflate(R.layout.nav_header_base, null);
         navigationView.addHeaderView(navHeader);
         navigationView.getHeaderView(0).setVisibility(View.GONE);
-        //Kenalan
+        //Kenalan\0
         navhead_photo = (ShapeImageView) navHeader.findViewById(R.id.navhead_photo);
         tv_nama = (TextView) navHeader.findViewById(R.id.navhead_nama);
         tv_birthday = (TextView) navHeader.findViewById(R.id.navhead_birthday);
         tv_email = (TextView) navHeader.findViewById(R.id.navhead_email);
         tv_gender = (TextView) navHeader.findViewById(R.id.navhead_gender);
-        //end Kenalan
-
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -83,10 +81,7 @@ public class BaseActivity extends AppCompatActivity
                     new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
 
-
-
-        Picasso.with(this).load(PreferenceManager.getPictureURL(this))
-                .into(navhead_photo);
+        Picasso.with(this).load(PreferenceManager.getPictureURL(this)).into(navhead_photo);
 
         tv_nama.setText(PreferenceManager.getDisplayName(this));
         tv_birthday.setText(PreferenceManager.getBirthday(this));
