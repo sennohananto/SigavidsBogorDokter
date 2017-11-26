@@ -3,8 +3,16 @@ package besidev.sigavidsbogor.ui.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telecom.Call;
 
 import besidev.sigavidsbogor.R;
+import besidev.sigavidsbogor.api.MasyarakatServices;
+import besidev.sigavidsbogor.api.RetrofitBuilder;
+import besidev.sigavidsbogor.helpers.AppHelpers;
+import besidev.sigavidsbogor.helpers.PreferenceManager;
+import besidev.sigavidsbogor.models.Masyarakat;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SplashActivity extends AppCompatActivity {
     private Thread splashTread;
@@ -13,7 +21,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
+        RetrofitBuilder.getRetrofitBuilder();
         splashTread = new Thread() {
             @Override
             public void run() {
@@ -48,4 +56,6 @@ public class SplashActivity extends AppCompatActivity {
         };
         splashTread.start();
     }
+
+
 }

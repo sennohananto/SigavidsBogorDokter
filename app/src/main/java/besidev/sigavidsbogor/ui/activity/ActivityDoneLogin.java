@@ -15,7 +15,13 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import besidev.sigavidsbogor.R;
+import besidev.sigavidsbogor.api.MasyarakatServices;
+import besidev.sigavidsbogor.api.RetrofitBuilder;
+import besidev.sigavidsbogor.helpers.AppHelpers;
+import besidev.sigavidsbogor.models.Masyarakat;
 import cn.refactor.library.ShapeImageView;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ActivityDoneLogin extends AppCompatActivity {
 
@@ -45,7 +51,7 @@ public class ActivityDoneLogin extends AppCompatActivity {
         tvNama.setText(besidev.sigavidsbogor.helpers.PreferenceManager.getDisplayName(getApplicationContext()));
         tvEmail.setText(besidev.sigavidsbogor.helpers.PreferenceManager.getEmail(getApplicationContext()));
         ivFoto.setAnimation(animFadeIn);
-
+        inisialisasiRetrofit();
         done = new Thread() {
             @Override
             public void run() {
@@ -78,5 +84,21 @@ public class ActivityDoneLogin extends AppCompatActivity {
 
         //  Apply changes
         e.apply();
+    }
+
+    private void inisialisasiRetrofit(){
+        MasyarakatServices services = RetrofitBuilder.retrofit.create(MasyarakatServices.class);
+        services.loginMasyarakat(besidev.sigavidsbogor.helpers.PreferenceManager.getEmail(this), besidev.sigavidsbogor.helpers.PreferenceManager.getDisplayName(this), besidev.sigavidsbogor.helpers.PreferenceManager.getBirthday(this), besidev.sigavidsbogor.helpers.PreferenceManager.getGender(this), besidev.sigavidsbogor.helpers.PreferenceManager.getPictureURL(this)).enqueue(new Callback<Masyarakat>() {
+            @Override
+            public void onResponse(retrofit2.Call<Masyarakat> call, Response<Masyarakat> response) {
+                AppHelpers.LogCat("email baru, berhasil tambah");
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<Masyarakat> call, Throwable t) {
+
+            }
+        });
+
     }
 }

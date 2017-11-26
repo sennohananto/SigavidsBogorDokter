@@ -25,9 +25,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
-
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
         <activity
             android:name=".ui.activity.LoginActivity"
             android:theme="@style/AppBaseThemeNoActionBar" />
@@ -56,28 +56,30 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:parentActivityName=".ui.activity.BaseActivity"
             android:name=".ui.activity.LayananHIVActivity"
-            android:label="@string/title_activity_layanan_hiv">
+            android:label="@string/title_activity_layanan_hiv"
+            android:parentActivityName=".ui.activity.BaseActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="besidev.sigavidsbogor.ui.activity.BaseActivity" />
         </activity>
-        <activity android:name=".ui.activity.TemanPendampingActivity"
+        <activity
+            android:name=".ui.activity.TemanPendampingActivity"
             android:label="Dapatkan Teman Pendamping"
-            android:parentActivityName=".ui.activity.BaseActivity">
-
-        </activity>
-        <activity android:name=".ui.activity.RekamMedisActivity"
+            android:parentActivityName=".ui.activity.BaseActivity"></activity>
+        <activity
+            android:name=".ui.activity.RekamMedisActivity"
             android:label="Rekam Medis Gue"
-            android:parentActivityName=".ui.activity.BaseActivity"/>
-        <activity android:name=".ui.activity.QnaActivity"
+            android:parentActivityName=".ui.activity.BaseActivity" />
+        <activity
+            android:name=".ui.activity.QnaActivity"
             android:label="Question and Answer"
-            android:parentActivityName=".ui.activity.BaseActivity"/>
+            android:parentActivityName=".ui.activity.BaseActivity" />
         <activity
             android:name=".ui.activity.InfoHIVActivity"
             android:label="Kenali HIV/AIDS"
             android:parentActivityName=".ui.activity.BaseActivity" />
+        <activity android:name=".ui.activity.InAppbrowser"></activity>
     </application>
 
 </manifest>

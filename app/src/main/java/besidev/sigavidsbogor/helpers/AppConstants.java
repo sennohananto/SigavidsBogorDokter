@@ -5,7 +5,7 @@ package besidev.sigavidsbogor.helpers;
  */
 
 public class AppConstants {
-
+    public static String base_url = "http://sigavids.pejuangprojek.web.id/";
     public static String GOOGLE_CLIENT_ID = "28633101848-f93he0uj9fs7u6gah3dtlqp1fsoe8ama.apps.googleusercontent.com";
     public static String GOOGLE_CLIENT_SECRET = "h5Pz0Ts6UZ_d6ZhkEY1tbJ7e";
     public static final String TAG = "SIGAVIDS ->";

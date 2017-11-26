@@ -7,10 +7,14 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.service.carrier.CarrierMessagingService;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -21,7 +25,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -29,13 +35,23 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 import besidev.sigavidsbogor.SigavidsApp;
+import besidev.sigavidsbogor.adapter.CustAdapterBerita;
+import besidev.sigavidsbogor.api.BeritaServices;
+import besidev.sigavidsbogor.api.RetrofitBuilder;
 import besidev.sigavidsbogor.helpers.AppConstants;
 import besidev.sigavidsbogor.helpers.AppHelpers;
 import besidev.sigavidsbogor.helpers.PreferenceManager;
 import besidev.sigavidsbogor.R;
+import besidev.sigavidsbogor.models.Berita;
 import cn.refactor.library.ShapeImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
+import static besidev.sigavidsbogor.SigavidsApp.getAppContext;
 import static besidev.sigavidsbogor.SigavidsApp.mGoogleApiClient;
 import static besidev.sigavidsbogor.ui.activity.LayananHIVActivity.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;
 
@@ -45,11 +61,19 @@ public class BaseActivity extends AppCompatActivity
     private ShapeImageView navhead_photo;
     private TextView tv_nama, tv_email, tv_birthday, tv_gender;
     private GoogleApiClient googleApiClient;
+    private RecyclerView recyclerView;
+    private CustAdapterBerita adapterBerita;
+    private Berita kumpBerita[];
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+        inisialisasiRetrofit();
+        recyclerView = findViewById(R.id.recv_main);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -72,6 +96,7 @@ public class BaseActivity extends AppCompatActivity
         tv_birthday = (TextView) navHeader.findViewById(R.id.navhead_birthday);
         tv_email = (TextView) navHeader.findViewById(R.id.navhead_email);
         tv_gender = (TextView) navHeader.findViewById(R.id.navhead_gender);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeLayBerita);
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -87,6 +112,20 @@ public class BaseActivity extends AppCompatActivity
         tv_birthday.setText(PreferenceManager.getBirthday(this));
         tv_email.setText(PreferenceManager.getEmail(this));
         tv_gender.setText(PreferenceManager.getGender(this));
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        inisialisasiRetrofit();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 4000);
+            }
+        });
     }
 
     @Override
@@ -194,5 +233,36 @@ public class BaseActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void inisialisasiRetrofit(){
+        BeritaServices service = RetrofitBuilder.retrofit.create(BeritaServices.class);
+        Call<List<Berita>> call = service.getBerita();
+        call.enqueue(new Callback<List<Berita>>() {
+            @Override
+            public void onResponse(Call<List<Berita>> call, Response<List<Berita>> response) {
+                List<Berita> listBerita = response.body();
+                if (listBerita != null) {
+                    kumpBerita = new Berita[listBerita.size()];
+                }
+                int i = 0;
+                for (Berita p : listBerita){
+                    AppHelpers.LogCat(p.getJudulBerita());
+                    kumpBerita[i] = p;
+                    i++;
+                }
+                AppHelpers.LogCat("OnResponse dijalankan");
+                adapterBerita = new CustAdapterBerita(getApplicationContext(),kumpBerita);
+                LinearLayoutManager llm = new LinearLayoutManager(getAppContext());
+                llm.setOrientation(LinearLayoutManager.VERTICAL);
+                recyclerView.setLayoutManager(llm);
+                recyclerView.setAdapter(adapterBerita);
+            }
+
+            @Override
+            public void onFailure(Call<List<Berita>> call, Throwable throwable) {
+                Toast.makeText(getAppContext(),"Koneksi Gagal!, silakan coba lagi",Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
