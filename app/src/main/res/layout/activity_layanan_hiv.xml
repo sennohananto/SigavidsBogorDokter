@@ -55,6 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <LinearLayout
+                    android:background="?attr/selectableItemBackground"
                     android:id="@+id/linlaynav"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
@@ -62,6 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent">
                     <ImageView
+                        android:tint="@color/colorPrimaryDark"
                         android:src="@drawable/ic_navigation_black_24dp"
                         android:layout_width="32dp"
                         android:layout_height="32dp"/>
@@ -72,6 +74,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:background="?attr/selectableItemBackground"
                     android:id="@+id/linlaytelepon"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
@@ -79,6 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent">
                     <ImageView
+                        android:tint="@color/colorPrimaryDark"
                         android:src="@drawable/ic_phone_black_24dp"
                         android:layout_width="32dp"
                         android:layout_height="32dp"/>

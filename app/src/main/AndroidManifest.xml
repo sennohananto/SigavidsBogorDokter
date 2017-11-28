@@ -66,7 +66,7 @@
         <activity
             android:name=".ui.activity.TemanPendampingActivity"
             android:label="Dapatkan Teman Pendamping"
-            android:parentActivityName=".ui.activity.BaseActivity"></activity>
+            android:parentActivityName=".ui.activity.BaseActivity" />
         <activity
             android:name=".ui.activity.RekamMedisActivity"
             android:label="Rekam Medis Gue"
@@ -79,7 +79,21 @@
             android:name=".ui.activity.InfoHIVActivity"
             android:label="Kenali HIV/AIDS"
             android:parentActivityName=".ui.activity.BaseActivity" />
-        <activity android:name=".ui.activity.InAppbrowser"></activity>
+        <activity android:name=".ui.activity.InAppbrowser" />
+        <activity
+            android:name=".ui.activity.DetailRekamMedis"
+            android:parentActivityName=".ui.activity.RekamMedisActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="besidev.sigavidsbogor.ui.activity.RekamMedisActivity" />
+        </activity>
+        <activity android:name=".ui.activity.MyQnAActivity" />
+        <activity android:name=".ui.activity.DetailQNAActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="besidev.sigavidsbogor.ui.activity.QnaActivity" />
+        </activity>
+        <activity android:name=".ui.activity.AddTanyaJawabActivity"></activity>
     </application>
 
 </manifest>

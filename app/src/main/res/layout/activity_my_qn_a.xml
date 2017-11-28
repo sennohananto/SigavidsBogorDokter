@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="besidev.sigavidsbogor.ui.activity.MyQnAActivity">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeLayMyQNA"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recv_MyQNA"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fabAddQNA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/fab_add"
+        app:fab_colorNormal="@color/colorPrimaryDark"
+        app:fab_colorPressed="@color/colorPrimary"
+        app:fab_colorRipple="#99FFFFFF"
+        app:fab_hideAnimation="@anim/fab_scale_down"
+        app:fab_shadowColor="#66000000"
+        app:fab_shadowRadius="4dp"
+        app:fab_shadowXOffset="1dp"
+        app:fab_shadowYOffset="3dp"
+        app:fab_showAnimation="@anim/fab_scale_up"
+        app:fab_showShadow="true"
+        app:fab_size="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</android.support.constraint.ConstraintLayout>

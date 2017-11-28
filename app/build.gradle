@@ -26,6 +26,7 @@ android {
                 }
             }
         }
+        exclude module: 'httpclient'
     }
 
     buildTypes {
@@ -64,6 +65,9 @@ dependencies {
     compile 'com.squareup.okio:okio:1.13.0'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile 'com.daasuu:BubbleLayout:1.2.0'
+    compile 'com.github.clans:fab:1.6.4'
+//    compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
     testCompile 'junit:junit:4.12'
 }
 
@@ -77,6 +81,10 @@ repositories {
     mavenCentral()
     maven { url "https://maven.google.com" }
 }
+
+
+
+
 
 
 
